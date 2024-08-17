@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -31,4 +32,10 @@ public class User {
 
     @LastModifiedDate
     private LocalDateTime lastUpdate;
+
+    @ManyToOne
+    private Role role;
+
+    @OneToMany
+    private List<Orders> orders;
 }

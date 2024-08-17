@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,6 +29,12 @@ public class Order {
     @LastModifiedDate
     private LocalDateTime lastUpdate;
 
-    @OneToMany(mappedBy = "id.order")
+    @OneToMany(mappedBy = "id.orders")
     private List<OrderItems> orderItems;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Customer customer;
 }

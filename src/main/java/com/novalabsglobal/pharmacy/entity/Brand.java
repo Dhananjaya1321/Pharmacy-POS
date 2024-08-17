@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,4 +31,7 @@ public class Brand {
 
     @LastModifiedDate
     private LocalDateTime lastUpdate;
+
+    @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST})
+    private List<Item> items;
 }

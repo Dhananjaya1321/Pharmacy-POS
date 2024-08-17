@@ -22,5 +22,5 @@ public class OrderItemsIds implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "oid")
-    private Order order;
+    private Orders orders;
 }
