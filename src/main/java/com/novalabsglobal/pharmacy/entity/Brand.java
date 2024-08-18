@@ -25,6 +25,7 @@ public class Brand {
     private String address;
     private String contact;
     private String website;
+    private String description;
 
     private String createdBy;
     private String updatedBy;

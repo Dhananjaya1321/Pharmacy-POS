@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,17 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "order_date")
+    private Date orderDate;
+
+    private double discount;
+
+    private double total;
+
+    @Column(name = "sub_total")
+    private double subTotal;
+
 
 
     private String createdBy;

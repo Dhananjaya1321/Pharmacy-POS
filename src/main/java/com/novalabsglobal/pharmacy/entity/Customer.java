@@ -23,6 +23,8 @@ public class Customer {
     private Integer id;
     private String name;
     private String contact;
+    private String address;
+    private String email;
     private String nic;
 
     private String createdBy;

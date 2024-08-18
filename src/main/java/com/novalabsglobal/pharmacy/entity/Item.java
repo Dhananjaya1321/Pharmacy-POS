@@ -22,6 +22,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private String description;
+    private double reorderLevel;/*The reorder level is a percentage of all items in stock purchased*/
 
 
     private String createdBy;
@@ -33,8 +35,8 @@ public class Item {
     @OneToMany(mappedBy = "id.item")
     private List<ItemSuppliers> itemSuppliers;
 
-    @OneToMany(mappedBy = "id.item")
-    private List<StockItems> stockItems;
+    @OneToMany(mappedBy = "item")
+    private List<Stock> stocks;
 
     @OneToMany(mappedBy = "id.item")
     private List<OrderItems> orderItems;
@@ -44,4 +46,7 @@ public class Item {
 
     @ManyToOne
     private Brand brand;
+
+    @ManyToOne
+    private Unit unit;
 }

@@ -22,6 +22,22 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "purchased_amount")
+    private double purchasedAmount;
+
+    @Column(name = "purchased_qty")
+    private double purchasedQty;
+
+    @Column(name = "purchased_discount")
+    private double purchased_Discount;
+
+    @Column(name = "expiry_date")
+    private double expiryDate;
+
+    private double purchased_return_amount;
+    private double purchased_return_qty;
+
+
 
     private String createdBy;
     private String updatedBy;
@@ -29,6 +45,6 @@ public class Stock {
     @LastModifiedDate
     private LocalDateTime lastUpdate;
 
-    @OneToMany(mappedBy = "id.stock")
-    private List<StockItems> stockItems;
+    @ManyToOne
+    private Item item;
 }

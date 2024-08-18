@@ -15,4 +15,5 @@ import lombok.ToString;
 public class OrderItems {
     @EmbeddedId
     private OrderItemsIds id;
+    private double qty;
 }

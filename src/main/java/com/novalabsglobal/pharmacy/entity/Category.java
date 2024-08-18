@@ -22,9 +22,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String address;
-    private String contact;
-    private String website;
+    private String description;
 
     private String createdBy;
     private String updatedBy;
