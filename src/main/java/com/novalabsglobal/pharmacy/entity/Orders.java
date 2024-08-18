@@ -1,5 +1,7 @@
 package com.novalabsglobal.pharmacy.entity;
 
+import com.novalabsglobal.pharmacy.enums.BrandStatus;
+import com.novalabsglobal.pharmacy.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +35,8 @@ public class Orders {
     @Column(name = "sub_total")
     private double subTotal;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
 
     private String createdBy;

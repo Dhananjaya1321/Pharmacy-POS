@@ -1,5 +1,7 @@
 package com.novalabsglobal.pharmacy.entity;
 
+import com.novalabsglobal.pharmacy.enums.UnitStatus;
+import com.novalabsglobal.pharmacy.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +28,9 @@ public class User {
     private String contact;
     private String username;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     private String createdBy;
     private String updatedBy;

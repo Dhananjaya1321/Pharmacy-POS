@@ -1,5 +1,7 @@
 package com.novalabsglobal.pharmacy.entity;
 
+import com.novalabsglobal.pharmacy.enums.BrandStatus;
+import com.novalabsglobal.pharmacy.enums.ItemStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +26,8 @@ public class Item {
     private String name;
     private String description;
     private double reorderLevel;/*The reorder level is a percentage of all items in stock purchased*/
-
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
 
     private String createdBy;
     private String updatedBy;

@@ -1,5 +1,7 @@
 package com.novalabsglobal.pharmacy.entity;
 
+import com.novalabsglobal.pharmacy.enums.BrandStatus;
+import com.novalabsglobal.pharmacy.enums.RoleStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +26,9 @@ public class Shop {
     private String address;
     private String contact;
     private String website;
+
+    @Enumerated(EnumType.STRING)
+    private RoleStatus status;
 
     private String createdBy;
     private String updatedBy;

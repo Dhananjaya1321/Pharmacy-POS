@@ -1,5 +1,7 @@
 package com.novalabsglobal.pharmacy.entity;
 
+import com.novalabsglobal.pharmacy.enums.BrandStatus;
+import com.novalabsglobal.pharmacy.enums.StockStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +39,8 @@ public class Stock {
     private double purchased_return_amount;
     private double purchased_return_qty;
 
+    @Enumerated(EnumType.STRING)
+    private StockStatus status;
 
 
     private String createdBy;

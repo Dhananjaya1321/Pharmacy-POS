@@ -1,7 +1,7 @@
+package com.novalabsglobal.pharmacy.dto;
 
-package com.novalabsglobal.pharmacy.entity;
-
-import com.novalabsglobal.pharmacy.enums.UnitStatus;
+import com.novalabsglobal.pharmacy.enums.ItemStatus;
+import com.novalabsglobal.pharmacy.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,33 +11,25 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
-
-@Entity
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
-public class Unit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrdersDTO {
     private Integer id;
-
-    private String unitName;
-
-    private String unitSymbology;
-
-    @Enumerated(EnumType.STRING)
-    private UnitStatus status;
-
+    private Date orderDate;
+    private double discount;
+    private double total;
+    private double subTotal;
+    private OrderStatus status;
     private String createdBy;
     private String updatedBy;
-
-    @LastModifiedDate
     private LocalDateTime lastUpdate;
 
-    @OneToMany(mappedBy = "unit")
-    private List<Item> items;
+    private List<ItemDTO> itemDTOS;
+    private UserDTO user;
+    private CustomerDTO customer;
 }
