@@ -33,7 +33,7 @@ public class ShopController {
             if (e.getMessage().equals("The shop name, contact and address is mandatory"))
                 return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
 
-            if (e.getMessage().equals("Feature is not exists!"))
+            if (e.getMessage().equals("Shop is not exists!"))
                 return ExceptionHandler.handleCustomException(HttpStatus.NOT_FOUND, e);
 
             return ExceptionHandler.handleException(e);

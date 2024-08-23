@@ -1,5 +1,6 @@
 package com.novalabsglobal.pharmacy.dto;
 
+import com.novalabsglobal.pharmacy.entity.Role;
 import com.novalabsglobal.pharmacy.enums.OrderStatus;
 import com.novalabsglobal.pharmacy.enums.RoleStatus;
 import lombok.AllArgsConstructor;
@@ -24,4 +25,14 @@ public class RoleDTO {
     private LocalDateTime lastUpdate;
 
     private List<Integer> users;
+
+    public RoleDTO(Integer id) {
+        this.id = id;
+    }
+
+    public RoleDTO(Integer id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 }

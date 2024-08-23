@@ -26,6 +26,6 @@ public class UserDTO {
     private LocalDateTime lastUpdate;
     private UserStatus status;
 
-    private RoleDTO role;
+    private Integer role;
     private List<Integer> orders;
 }
