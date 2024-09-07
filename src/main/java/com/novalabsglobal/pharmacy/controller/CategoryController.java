@@ -39,4 +39,33 @@ public class CategoryController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<ResponseUtil> deleteCategory(
+            @PathVariable("id") Integer id
+    ) {
+        try {
+            if (categoryService.deleteCategory(id)) {
+                return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully deleted", id));
+            } else {
+                return ResponseEntity.ok(new ResponseUtil(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong!", id));
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+
+            if (e.getMessage().equals("Category is not exists!"))
+                return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+            return ExceptionHandler.handleException(e);
+        }
+    }
+
+    @GetMapping
+    private ResponseEntity<ResponseUtil> getAllCategories() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", categoryService.getAllCategories()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

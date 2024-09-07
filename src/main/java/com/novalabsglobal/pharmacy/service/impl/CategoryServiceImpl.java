@@ -1,14 +1,19 @@
 package com.novalabsglobal.pharmacy.service.impl;
 
 import com.novalabsglobal.pharmacy.dto.CategoryDTO;
+import com.novalabsglobal.pharmacy.dto.CategoryResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Category;
 import com.novalabsglobal.pharmacy.enums.CategoryStatus;
+import com.novalabsglobal.pharmacy.enums.CustomerStatus;
 import com.novalabsglobal.pharmacy.repo.CategoryRepo;
 import com.novalabsglobal.pharmacy.service.CategoryService;
+import com.novalabsglobal.pharmacy.service.mapper.CategoryMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -39,17 +44,17 @@ public class CategoryServiceImpl implements CategoryService {
         return dto;
     }
 
-//
-//    @Override
-//    public boolean deleteCustomer(Integer id) {
-//        if (!customerRepo.existsById(id) || customerRepo.getStatus(id).equals(CustomerStatus.DELETED))
-//            throw new RuntimeException("Customer is not exists!");
-//
-//        return customerRepo.deleteCustomer(id) > 0;
-//    }
-//
-//    @Override
-//    public List<CustomerResponseDTO> getAllCustomers() {
-//      return new CustomerMapper().entityToDTO(customerRepo.getAllCustomers());
-//    }
+    @Override
+    public boolean deleteCategory(Integer id) {
+        if (!categoryRepo.existsById(id) || categoryRepo.getStatus(id).equals(CategoryStatus.DELETED))
+            throw new RuntimeException("Category is not exists!");
+
+        return categoryRepo.deleteCategory(id) > 0;
+    }
+
+
+    @Override
+    public List<CategoryResponseDTO> getAllCategories() {
+      return new CategoryMapper().entityToDTO(categoryRepo.getAllCategories());
+    }
 }
