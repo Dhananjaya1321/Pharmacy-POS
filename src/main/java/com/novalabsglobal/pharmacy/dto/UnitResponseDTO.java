@@ -18,6 +18,7 @@ public class UnitResponseDTO {
     private Integer id;
     private String unitName;
     private String unitSymbology;
+    private String description;
     private UnitStatus status;
 
     private List<ItemDTO> items;

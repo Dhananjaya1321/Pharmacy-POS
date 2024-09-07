@@ -28,6 +28,7 @@ public class Unit {
     private String unitName;
 
     private String unitSymbology;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private UnitStatus status;
