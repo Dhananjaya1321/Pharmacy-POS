@@ -21,8 +21,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public ShopDTO saveOrUpdateShop(ShopDTO dto) {
-        if (dto.getName() == null || dto.getContact() == null || dto.getAddress() == null)
-            throw new RuntimeException("The shop name, contact and address is mandatory");
+//        if (dto.getName() == null || dto.getContact() == null || dto.getAddress() == null)
+//            throw new RuntimeException("The shop name, contact and address is mandatory");
 
         if (dto.getId() == null || dto.getId() == 0) {
             dto.setStatus(ShopStatus.ACTIVE);

@@ -37,4 +37,8 @@ public class Role {
 
     @OneToMany(mappedBy = "role", cascade = {CascadeType.PERSIST})
     private List<User> users;
+
+    public Role(Integer id) {
+        this.id = id;
+    }
 }

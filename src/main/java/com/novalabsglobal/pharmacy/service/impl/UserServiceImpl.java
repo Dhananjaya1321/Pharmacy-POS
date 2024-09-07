@@ -2,6 +2,7 @@ package com.novalabsglobal.pharmacy.service.impl;
 
 import com.novalabsglobal.pharmacy.dto.UserDTO;
 import com.novalabsglobal.pharmacy.dto.UserResponseDTO;
+import com.novalabsglobal.pharmacy.entity.Role;
 import com.novalabsglobal.pharmacy.entity.User;
 import com.novalabsglobal.pharmacy.enums.UserStatus;
 import com.novalabsglobal.pharmacy.repo.UserRepo;
@@ -41,7 +42,10 @@ public class UserServiceImpl implements UserService {
             dto.setUsername(userRepo.getUsername(dto.getId()));
             dto.setPassword(userRepo.getPassword(dto.getId()));
         }
-        User user = userRepo.save(modelMapper.map(dto, User.class));
+        Role role = new Role(dto.getRole());
+        User user = modelMapper.map(dto, User.class);
+        user.setRole(role);
+        user = userRepo.save(user);
 
         dto.setId(user.getId());
         return dto;

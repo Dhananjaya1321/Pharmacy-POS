@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,8 +25,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDTO> getAllRoles() {
         List<Role> roles = roleRepo.findAll();
-        return roles.stream()
-                .map(role -> modelMapper.map(role, RoleDTO.class))
-                .collect(Collectors.toList());
+        List<RoleDTO> dtos = new ArrayList<>();
+        for (Role r : roles) {
+            RoleDTO dto = new RoleDTO();
+            dto.setId(r.getId());
+            dto.setName(r.getName());
+            dto.setDescription(r.getDescription());
+
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
