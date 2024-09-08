@@ -52,4 +52,8 @@ public class Item {
 
     @ManyToOne
     private Unit unit;
+
+    public Item(Integer id) {
+        this.id = id;
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,13 +32,14 @@ public class Stock {
     private double purchasedQty;
 
     @Column(name = "purchased_discount")
-    private double purchased_Discount;
+    private double purchasedDiscount;
 
     @Column(name = "expiry_date")
-    private double expiryDate;
+    private Date expiryDate;
 
     private double purchased_return_amount;
     private double purchased_return_qty;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private StockStatus status;

@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @ToString
@@ -20,10 +21,11 @@ public class StockDTO {
     private Integer id;
     private double purchasedAmount;
     private double purchasedQty;
-    private double purchased_Discount;
-    private double expiryDate;
+    private double purchasedDiscount;
+    private Date expiryDate;
     private double purchased_return_amount;
     private double purchased_return_qty;
+    private String description;
     private StockStatus status;
     private String createdBy;
     private String updatedBy;
