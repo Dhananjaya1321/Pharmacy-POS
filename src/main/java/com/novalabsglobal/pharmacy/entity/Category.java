@@ -37,4 +37,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST})
     private List<Item> items;
+
+    public Category(Integer id) {
+        this.id = id;
+    }
 }

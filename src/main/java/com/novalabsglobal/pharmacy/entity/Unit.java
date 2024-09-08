@@ -41,4 +41,8 @@ public class Unit {
 
     @OneToMany(mappedBy = "unit")
     private List<Item> items;
+
+    public Unit(Integer id) {
+        this.id = id;
+    }
 }

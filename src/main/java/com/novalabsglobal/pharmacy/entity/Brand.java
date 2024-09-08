@@ -40,4 +40,8 @@ public class Brand {
 
     @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST})
     private List<Item> items;
+
+    public Brand(Integer id) {
+        this.id = id;
+    }
 }
