@@ -21,20 +21,20 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public ShopDTO saveOrUpdateShop(ShopDTO dto) {
-//        if (dto.getName() == null || dto.getContact() == null || dto.getAddress() == null)
-//            throw new RuntimeException("The shop name, contact and address is mandatory");
+        if (dto.getPharmacyName() == null || dto.getContact() == null || dto.getAddress() == null)
+            throw new RuntimeException("The shop name, contact and address is mandatory");
 
-        if (dto.getId() == null || dto.getId() == 0) {
+        if (dto.getPharmacyId() == null || dto.getPharmacyId() == 0) {
             dto.setStatus(ShopStatus.ACTIVE);
         } else {
-            if (!shopRepo.existsById(dto.getId()))
+            if (!shopRepo.existsById(dto.getPharmacyId()))
                 throw new RuntimeException("Shop is not exists!");
 
-            dto.setStatus(shopRepo.getStatus(dto.getId()));
+            dto.setStatus(shopRepo.getStatus(dto.getPharmacyId()));
         }
         Shop shop = shopRepo.save(modelMapper.map(dto, Shop.class));
 
-        dto.setId(shop.getId());
+        dto.setPharmacyId(shop.getPharmacyId());
         return dto;
     }
 

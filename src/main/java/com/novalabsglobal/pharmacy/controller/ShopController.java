@@ -25,7 +25,7 @@ public class ShopController {
             @RequestBody ShopDTO dto
     ) {
         try {
-            String msg = (dto.getId() == null || dto.getId()==0) ? "Shop saved successfully." : "Shop updated successfully.";
+            String msg = (dto.getPharmacyId() == null || dto.getPharmacyId()==0) ? "Shop saved successfully." : "Shop updated successfully.";
             return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, msg, shopService.saveOrUpdateShop(dto)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

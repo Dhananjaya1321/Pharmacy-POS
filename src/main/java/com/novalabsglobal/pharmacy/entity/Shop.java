@@ -2,6 +2,7 @@ package com.novalabsglobal.pharmacy.entity;
 
 import com.novalabsglobal.pharmacy.enums.BrandStatus;
 import com.novalabsglobal.pharmacy.enums.RoleStatus;
+import com.novalabsglobal.pharmacy.enums.ShopStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,14 +22,17 @@ import java.time.LocalDateTime;
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
+    @Column(name = "id")
+    private Integer pharmacyId;
+
+    @Column(name = "name")
+    private String pharmacyName;
     private String address;
     private String contact;
     private String website;
 
     @Enumerated(EnumType.STRING)
-    private RoleStatus status;
+    private ShopStatus status;
 
     private String createdBy;
     private String updatedBy;

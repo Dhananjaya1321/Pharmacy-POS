@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShopDTO {
-    private Integer id;
-    private String name;
+    private Integer pharmacyId;
+    private String pharmacyName;
     private String address;
     private String contact;
     private String website;

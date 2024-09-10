@@ -1,7 +1,5 @@
 package com.novalabsglobal.pharmacy.service;
 
-import com.novalabsglobal.pharmacy.dto.BrandDTO;
-import com.novalabsglobal.pharmacy.dto.BrandResponseDTO;
 import com.novalabsglobal.pharmacy.dto.ItemDTO;
 import com.novalabsglobal.pharmacy.dto.ItemResponseDTO;
 
