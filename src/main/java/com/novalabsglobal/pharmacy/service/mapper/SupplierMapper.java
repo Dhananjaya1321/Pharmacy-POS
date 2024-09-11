@@ -4,12 +4,14 @@ import com.novalabsglobal.pharmacy.dto.BrandResponseDTO;
 import com.novalabsglobal.pharmacy.dto.SupplierResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Brand;
 import com.novalabsglobal.pharmacy.entity.Supplier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierMapper {
-    public List<SupplierResponseDTO> entityToDTO(List<Supplier> suppliers) {
+    public Page<SupplierResponseDTO> entityToDTO(Page<Supplier> suppliers) {
         List<SupplierResponseDTO> dtos = new ArrayList<>();
         for (Supplier s : suppliers) {
             SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
@@ -24,7 +26,8 @@ public class SupplierMapper {
 
             dtos.add(supplierResponseDTO);
         }
-        return dtos;
+        return new PageImpl<>(dtos, suppliers.getPageable(), suppliers.getTotalElements());
+
     }
 }
 

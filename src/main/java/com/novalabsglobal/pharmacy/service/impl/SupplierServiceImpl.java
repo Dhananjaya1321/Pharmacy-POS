@@ -9,10 +9,10 @@ import com.novalabsglobal.pharmacy.service.SupplierService;
 import com.novalabsglobal.pharmacy.service.mapper.SupplierMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -53,7 +53,8 @@ public class SupplierServiceImpl implements SupplierService {
 
 
     @Override
-    public List<SupplierResponseDTO> getAllSuppliers() {
-      return new SupplierMapper().entityToDTO(supplierRepo.getAllSuppliers());
+    public Page<SupplierResponseDTO> getAllSuppliers(Integer page, Integer size) {
+        PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
+      return new SupplierMapper().entityToDTO(supplierRepo.getAllSuppliers(pageRequest));
     }
 }

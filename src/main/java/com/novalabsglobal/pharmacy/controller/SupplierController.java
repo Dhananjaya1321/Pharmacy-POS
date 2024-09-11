@@ -60,9 +60,12 @@ public class SupplierController {
     }
 
     @GetMapping
-    private ResponseEntity<ResponseUtil> getAllSuppliers() {
+    private ResponseEntity<ResponseUtil> getAllSuppliers(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
+    ) {
         try {
-            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", supplierService.getAllSuppliers()));
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", supplierService.getAllSuppliers(page,size)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);
