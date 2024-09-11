@@ -18,6 +18,9 @@ public class SupplierResponseDTO {
     private String name;
     private String contact;
     private String website;
+    private String nic;
+    private String email;
+    private String description;
     private String createdBy;
     private String updatedBy;
     private LocalDateTime lastUpdate;
