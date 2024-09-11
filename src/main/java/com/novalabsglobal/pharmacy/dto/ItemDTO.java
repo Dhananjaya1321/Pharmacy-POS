@@ -19,7 +19,7 @@ public class ItemDTO {
     private Integer id;
     private String name;
     private String description;
-    private double reorderLevel;/*The reorder level is a percentage of all items in stock purchased*/
+    private double reOrderLevel;
     private ItemStatus status;
     private String createdBy;
     private String updatedBy;

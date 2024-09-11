@@ -4,12 +4,14 @@ import com.novalabsglobal.pharmacy.dto.BrandDTO;
 import com.novalabsglobal.pharmacy.dto.CategoryDTO;
 import com.novalabsglobal.pharmacy.dto.ItemResponseDTO;
 import com.novalabsglobal.pharmacy.dto.UnitDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemMapper {
-    public List<ItemResponseDTO> entityToDTO(List<Object> items) {
+    public Page<ItemResponseDTO> entityToDTO(Page<Object> items) {
         List<ItemResponseDTO> dtos = new ArrayList<>();
         for (Object o : items) {
             Object[] arr = (Object[]) o;
@@ -17,7 +19,7 @@ public class ItemMapper {
             ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
             itemResponseDTO.setId((Integer) arr[0]);
             itemResponseDTO.setName(String.valueOf(arr[1]));
-            itemResponseDTO.setReorderLevel((Double) arr[2]);
+            itemResponseDTO.setReOrderLevel((Double) arr[2]);
             itemResponseDTO.setDescription(String.valueOf(arr[3]));
 
             UnitDTO unitDTO = new UnitDTO();
@@ -35,7 +37,7 @@ public class ItemMapper {
 
             dtos.add(itemResponseDTO);
         }
-        return dtos;
+        return new PageImpl<>(dtos, items.getPageable(), items.getTotalElements());
     }
 }
 

@@ -1,7 +1,5 @@
 package com.novalabsglobal.pharmacy.service.impl;
 
-import com.novalabsglobal.pharmacy.dto.BrandDTO;
-import com.novalabsglobal.pharmacy.dto.BrandResponseDTO;
 import com.novalabsglobal.pharmacy.dto.ItemDTO;
 import com.novalabsglobal.pharmacy.dto.ItemResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Brand;
@@ -17,14 +15,13 @@ import com.novalabsglobal.pharmacy.repo.CategoryRepo;
 import com.novalabsglobal.pharmacy.repo.ItemRepo;
 import com.novalabsglobal.pharmacy.repo.UnitRepo;
 import com.novalabsglobal.pharmacy.service.ItemService;
-import com.novalabsglobal.pharmacy.service.mapper.BrandMapper;
 import com.novalabsglobal.pharmacy.service.mapper.ItemMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -87,7 +84,8 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public List<ItemResponseDTO> getAllItems() {
-        return new ItemMapper().entityToDTO(itemRepo.getAllItems());
+    public Page<ItemResponseDTO> getAllItems(Integer page, Integer size) {
+        PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
+        return new ItemMapper().entityToDTO(itemRepo.getAllItems(pageRequest));
     }
 }

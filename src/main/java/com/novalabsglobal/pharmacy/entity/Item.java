@@ -25,7 +25,8 @@ public class Item {
     private Integer id;
     private String name;
     private String description;
-    private double reorderLevel;/*The reorder level is a percentage of all items in stock purchased*/
+    @Column(name = "re_order_level")
+    private double reOrderLevel;/*The reorder level is a percentage of all items in stock purchased*/
     @Enumerated(EnumType.STRING)
     private ItemStatus status;
 

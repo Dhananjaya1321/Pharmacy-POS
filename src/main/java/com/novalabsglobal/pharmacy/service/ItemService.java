@@ -2,13 +2,12 @@ package com.novalabsglobal.pharmacy.service;
 
 import com.novalabsglobal.pharmacy.dto.ItemDTO;
 import com.novalabsglobal.pharmacy.dto.ItemResponseDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface ItemService {
     ItemDTO saveOrUpdateItem(ItemDTO dto);
 
     boolean deleteItem(Integer id);
 
-    List<ItemResponseDTO> getAllItems();
+    Page<ItemResponseDTO> getAllItems(Integer page, Integer size);
 }
