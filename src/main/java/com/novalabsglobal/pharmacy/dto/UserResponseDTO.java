@@ -19,6 +19,8 @@ public class UserResponseDTO {
     private String name;
     private String address;
     private String contact;
+    private String nic;
+    private String email;
     private String username;
     private String password;
     private String createdBy;

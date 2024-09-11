@@ -20,18 +20,25 @@ public class UserMapper {
             userDTO.setName(String.valueOf(arr[1]));
             userDTO.setAddress(String.valueOf(arr[2]));
             userDTO.setContact(String.valueOf(arr[3]));
-            userDTO.setUsername(String.valueOf(arr[4]));
-            userDTO.setStatus(UserStatus.valueOf(String.valueOf(arr[5])));
+
+            userDTO.setNic(String.valueOf(arr[4]));
+            userDTO.setEmail(String.valueOf(arr[5]));
+
+            userDTO.setUsername(String.valueOf(arr[6]));
+            userDTO.setStatus(UserStatus.valueOf(String.valueOf(arr[7])));
             userDTO.setRole(
                     new RoleDTO(
-                            (Integer) arr[6],
-                            (String) arr[7],
-                            (String) arr[8]
+                            (Integer) arr[8],
+                            (String) arr[9],
+                            (String) arr[10]
                     )
             );
-            userDTO.setCreatedBy(String.valueOf(arr[9]));
-            userDTO.setUpdatedBy(String.valueOf(arr[10]));
-            userDTO.setLastUpdate((arr[11] instanceof LocalDateTime) ? (LocalDateTime) arr[11] : ((Timestamp) arr[11]).toLocalDateTime());
+            System.out.println((Integer) arr[8]+" "+
+                    (String) arr[9]+" "+
+                    (String) arr[10]);
+            userDTO.setCreatedBy(String.valueOf(arr[11]));
+            userDTO.setUpdatedBy(String.valueOf(arr[12]));
+            userDTO.setLastUpdate((arr[13] instanceof LocalDateTime) ? (LocalDateTime) arr[13] : ((Timestamp) arr[13]).toLocalDateTime());
 
             dtos.add(userDTO);
         }

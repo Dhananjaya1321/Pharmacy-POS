@@ -24,11 +24,11 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     int deleteUser(Integer id);
 
     @Query(value = "SELECT u.id, u.name as user_name, u.address, u.contact, " +
-            "       u.username, u.status, " +
+            "       u.nic, u.email, u.username, u.status, " +
             "       r.id, r.name as role_name, r.description, " +
             "       u.createdBy, u.updatedBy, u.lastUpdate " +
             "FROM User u " +
-            "left join Role r on u.id = r.id " +
+            "left join Role r on u.role.id = r.id " +
             "where u.status!='DELETED'")
     List<Object> getAllUserDetails();
 }
