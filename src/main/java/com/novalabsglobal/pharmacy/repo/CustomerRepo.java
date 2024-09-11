@@ -1,9 +1,9 @@
 package com.novalabsglobal.pharmacy.repo;
 
-import com.novalabsglobal.pharmacy.dto.CustomerResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Customer;
-import com.novalabsglobal.pharmacy.entity.Role;
 import com.novalabsglobal.pharmacy.enums.CustomerStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +20,5 @@ public interface CustomerRepo extends JpaRepository<Customer,Integer> {
 
     @Query(value = "SELECT c.id,c.name,c.contact,c.address,c.email,c.nic,c.status,c.createdBy,c.updatedBy,c.lastUpdate " +
             "FROM Customer c WHERE c.status!='DELETED'")
-    List<Object> getAllCustomers();
+    Page<Object> getAllCustomers(PageRequest pageRequest);
 }

@@ -2,14 +2,12 @@ package com.novalabsglobal.pharmacy.service;
 
 import com.novalabsglobal.pharmacy.dto.CustomerDTO;
 import com.novalabsglobal.pharmacy.dto.CustomerResponseDTO;
-import com.novalabsglobal.pharmacy.dto.RoleDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface CustomerService {
     CustomerDTO saveOrUpdateCustomer(CustomerDTO dto);
 
     boolean deleteCustomer(Integer id);
 
-    List<CustomerResponseDTO> getAllCustomers();
+    Page<CustomerResponseDTO> getAllCustomers(Integer page, Integer size);
 }

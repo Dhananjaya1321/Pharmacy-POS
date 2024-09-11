@@ -55,6 +55,6 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public Page<SupplierResponseDTO> getAllSuppliers(Integer page, Integer size) {
         PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
-      return new SupplierMapper().entityToDTO(supplierRepo.getAllSuppliers(pageRequest));
+        return new SupplierMapper().entityToDTO(supplierRepo.getAllSuppliers(pageRequest));
     }
 }

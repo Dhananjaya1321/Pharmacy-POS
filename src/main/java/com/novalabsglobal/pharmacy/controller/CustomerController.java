@@ -62,9 +62,12 @@ public class CustomerController {
     }
 
     @GetMapping
-    private ResponseEntity<ResponseUtil> getAllCustomers() {
+    private ResponseEntity<ResponseUtil> getAllCustomers(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
+    ) {
         try {
-            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", customerService.getAllCustomers()));
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", customerService.getAllCustomers(page,size)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);

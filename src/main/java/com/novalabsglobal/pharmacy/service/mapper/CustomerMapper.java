@@ -5,6 +5,8 @@ import com.novalabsglobal.pharmacy.dto.RoleDTO;
 import com.novalabsglobal.pharmacy.dto.UserResponseDTO;
 import com.novalabsglobal.pharmacy.enums.CustomerStatus;
 import com.novalabsglobal.pharmacy.enums.UserStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerMapper {
-    public List<CustomerResponseDTO> entityToDTO(List<Object> customers) {
+    public Page<CustomerResponseDTO> entityToDTO(Page<Object> customers) {
         List<CustomerResponseDTO> dtos = new ArrayList<>();
         for (Object o : customers) {
             Object[] arr = (Object[]) o;
@@ -31,7 +33,7 @@ public class CustomerMapper {
 
             dtos.add(customerResponseDTO);
         }
-        return dtos;
+        return new PageImpl<>(dtos, customers.getPageable(), customers.getTotalElements());
     }
 }
 
