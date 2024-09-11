@@ -1,14 +1,10 @@
 package com.novalabsglobal.pharmacy.dto;
 
-import com.novalabsglobal.pharmacy.enums.ShopStatus;
 import com.novalabsglobal.pharmacy.enums.StockStatus;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -20,6 +16,7 @@ import java.util.Date;
 public class StockDTO {
     private Integer id;
     private double purchasedAmount;
+    private double availableQty;
     private double purchasedQty;
     private double purchasedDiscount;
     private Date expiryDate;

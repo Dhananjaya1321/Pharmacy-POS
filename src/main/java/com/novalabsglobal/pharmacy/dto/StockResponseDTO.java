@@ -16,6 +16,7 @@ import java.util.Date;
 public class StockResponseDTO {
     private Integer id;
     private double purchasedAmount;
+    private double availableQty;
     private double purchasedQty;
     private double purchasedDiscount;
     private Date expiryDate;

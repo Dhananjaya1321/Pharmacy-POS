@@ -2,6 +2,8 @@ package com.novalabsglobal.pharmacy.repo;
 
 import com.novalabsglobal.pharmacy.entity.Stock;
 import com.novalabsglobal.pharmacy.enums.StockStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,9 +19,9 @@ public interface StockRepo extends JpaRepository<Stock,Integer> {
     int deleteStock(Integer id);
 
     @Query(value = "SELECT s.id as stock_id, s.expiry_date, " +
-            "s.purchased_qty, s.purchased_amount, s.purchased_discount, " +
+            "s.purchased_qty, s.purchased_amount, s.purchased_discount, s.available_qty, s.description, " +
             "i.id as item_id, i.name FROM stock s " +
             "LEFT JOIN item i on i.id = s.item_id " +
             "WHERE s.status!='DELETED'",nativeQuery = true)
-    List<Object> getAllStocks();
+    Page<Object> getAllStocks(PageRequest pageRequest);
 }

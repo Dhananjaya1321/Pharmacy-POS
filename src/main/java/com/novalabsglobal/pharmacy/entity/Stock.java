@@ -28,6 +28,9 @@ public class Stock {
     @Column(name = "purchased_amount")
     private double purchasedAmount;
 
+    @Column(name = "available_qty")
+    private double availableQty;
+
     @Column(name = "purchased_qty")
     private double purchasedQty;
 

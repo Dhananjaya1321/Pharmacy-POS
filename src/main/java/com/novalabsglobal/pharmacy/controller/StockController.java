@@ -58,9 +58,12 @@ public class StockController {
     }
 
     @GetMapping
-    private ResponseEntity<ResponseUtil> getAllStocks() {
+    private ResponseEntity<ResponseUtil> getAllStocks(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
+    ) {
         try {
-            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", stockService.getAllStocks()));
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", stockService.getAllStocks(page,size)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);

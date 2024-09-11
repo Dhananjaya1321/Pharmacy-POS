@@ -1,24 +1,19 @@
 package com.novalabsglobal.pharmacy.service.impl;
 
-import com.novalabsglobal.pharmacy.dto.BrandDTO;
-import com.novalabsglobal.pharmacy.dto.BrandResponseDTO;
 import com.novalabsglobal.pharmacy.dto.StockDTO;
 import com.novalabsglobal.pharmacy.dto.StockResponseDTO;
-import com.novalabsglobal.pharmacy.entity.Brand;
 import com.novalabsglobal.pharmacy.entity.Item;
 import com.novalabsglobal.pharmacy.entity.Stock;
-import com.novalabsglobal.pharmacy.enums.BrandStatus;
 import com.novalabsglobal.pharmacy.enums.StockStatus;
 import com.novalabsglobal.pharmacy.repo.StockRepo;
 import com.novalabsglobal.pharmacy.service.StockService;
-import com.novalabsglobal.pharmacy.service.mapper.BrandMapper;
 import com.novalabsglobal.pharmacy.service.mapper.StockMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -33,6 +28,7 @@ public class StockServiceImpl implements StockService {
     @Override
     public StockDTO saveOrUpdateStock(StockDTO dto) {
         if (dto.getId() == null || dto.getId() == 0) {
+            dto.setAvailableQty(dto.getPurchasedQty());
             dto.setStatus(StockStatus.ACTIVE);
         } else {
             if (!stockRepo.existsById(dto.getId()) || stockRepo.getStatus(dto.getId()).equals(StockStatus.DELETED))
@@ -58,7 +54,8 @@ public class StockServiceImpl implements StockService {
 
 
     @Override
-    public List<StockResponseDTO> getAllStocks() {
-      return new StockMapper().entityToDTO(stockRepo.getAllStocks());
+    public Page<StockResponseDTO> getAllStocks(Integer page, Integer size) {
+        PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
+        return new StockMapper().entityToDTO(stockRepo.getAllStocks(pageRequest));
     }
 }

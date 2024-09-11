@@ -2,13 +2,12 @@ package com.novalabsglobal.pharmacy.service;
 
 import com.novalabsglobal.pharmacy.dto.StockDTO;
 import com.novalabsglobal.pharmacy.dto.StockResponseDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface StockService {
     StockDTO saveOrUpdateStock(StockDTO dto);
 
     boolean deleteStock(Integer id);
 
-    List<StockResponseDTO> getAllStocks();
+    Page<StockResponseDTO> getAllStocks(Integer page, Integer size);
 }
