@@ -2,6 +2,8 @@ package com.novalabsglobal.pharmacy.repo;
 
 import com.novalabsglobal.pharmacy.entity.Category;
 import com.novalabsglobal.pharmacy.enums.CategoryStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +19,5 @@ public interface CategoryRepo extends JpaRepository<Category,Integer> {
     int deleteCategory(Integer id);
 
     @Query(value = "SELECT c FROM Category c WHERE c.status!='DELETED'")
-    List<Category> getAllCategories();
+    Page<Category> getAllCategories(PageRequest pageRequest);
 }

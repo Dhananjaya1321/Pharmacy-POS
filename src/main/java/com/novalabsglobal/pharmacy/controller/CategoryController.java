@@ -60,9 +60,12 @@ public class CategoryController {
     }
 
     @GetMapping
-    private ResponseEntity<ResponseUtil> getAllCategories() {
+    private ResponseEntity<ResponseUtil> getAllCategories(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
+    ) {
         try {
-            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", categoryService.getAllCategories()));
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", categoryService.getAllCategories(page,size)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);

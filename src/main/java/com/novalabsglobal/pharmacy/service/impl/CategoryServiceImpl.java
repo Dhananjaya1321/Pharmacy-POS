@@ -4,16 +4,15 @@ import com.novalabsglobal.pharmacy.dto.CategoryDTO;
 import com.novalabsglobal.pharmacy.dto.CategoryResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Category;
 import com.novalabsglobal.pharmacy.enums.CategoryStatus;
-import com.novalabsglobal.pharmacy.enums.CustomerStatus;
 import com.novalabsglobal.pharmacy.repo.CategoryRepo;
 import com.novalabsglobal.pharmacy.service.CategoryService;
 import com.novalabsglobal.pharmacy.service.mapper.CategoryMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -54,7 +53,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public List<CategoryResponseDTO> getAllCategories() {
-      return new CategoryMapper().entityToDTO(categoryRepo.getAllCategories());
+    public Page<CategoryResponseDTO> getAllCategories(Integer page, Integer size) {
+        PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
+        return new CategoryMapper().entityToDTO(categoryRepo.getAllCategories(pageRequest));
     }
 }
