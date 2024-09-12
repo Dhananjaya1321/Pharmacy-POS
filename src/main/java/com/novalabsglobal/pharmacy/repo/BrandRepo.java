@@ -2,6 +2,8 @@ package com.novalabsglobal.pharmacy.repo;
 
 import com.novalabsglobal.pharmacy.entity.Brand;
 import com.novalabsglobal.pharmacy.enums.BrandStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +19,5 @@ public interface BrandRepo extends JpaRepository<Brand,Integer> {
     int deleteBrand(Integer id);
 
     @Query(value = "SELECT b FROM Brand b WHERE b.status!='DELETED'")
-    List<Brand> getAllBrands();
+    Page<Brand> getAllBrands(PageRequest pageRequest);
 }

@@ -60,9 +60,12 @@ public class BrandController {
     }
 
     @GetMapping
-    private ResponseEntity<ResponseUtil> getAllBrands() {
+    private ResponseEntity<ResponseUtil> getAllBrands(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
+    ) {
         try {
-            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", brandService.getAllBrands()));
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", brandService.getAllBrands(page,size)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);
