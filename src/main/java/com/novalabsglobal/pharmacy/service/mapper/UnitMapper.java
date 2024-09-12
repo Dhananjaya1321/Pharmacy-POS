@@ -2,12 +2,14 @@ package com.novalabsglobal.pharmacy.service.mapper;
 
 import com.novalabsglobal.pharmacy.dto.UnitResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Unit;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UnitMapper {
-    public List<UnitResponseDTO> entityToDTO(List<Unit> units) {
+    public Page<UnitResponseDTO> entityToDTO(Page<Unit> units) {
         List<UnitResponseDTO> dtos = new ArrayList<>();
         for (Unit u : units) {
             UnitResponseDTO unitResponseDTO = new UnitResponseDTO();
@@ -22,7 +24,7 @@ public class UnitMapper {
 
             dtos.add(unitResponseDTO);
         }
-        return dtos;
+        return new PageImpl<>(dtos, units.getPageable(), units.getTotalElements());
     }
 }
 

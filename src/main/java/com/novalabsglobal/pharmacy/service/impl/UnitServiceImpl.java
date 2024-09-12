@@ -1,23 +1,18 @@
 package com.novalabsglobal.pharmacy.service.impl;
 
-import com.novalabsglobal.pharmacy.dto.CategoryDTO;
-import com.novalabsglobal.pharmacy.dto.CategoryResponseDTO;
 import com.novalabsglobal.pharmacy.dto.UnitDTO;
 import com.novalabsglobal.pharmacy.dto.UnitResponseDTO;
-import com.novalabsglobal.pharmacy.entity.Category;
 import com.novalabsglobal.pharmacy.entity.Unit;
-import com.novalabsglobal.pharmacy.enums.CategoryStatus;
 import com.novalabsglobal.pharmacy.enums.UnitStatus;
 import com.novalabsglobal.pharmacy.repo.UnitRepo;
 import com.novalabsglobal.pharmacy.service.UnitService;
-import com.novalabsglobal.pharmacy.service.mapper.CategoryMapper;
 import com.novalabsglobal.pharmacy.service.mapper.UnitMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -58,7 +53,8 @@ public class UnitServiceImpl implements UnitService {
 
 
     @Override
-    public List<UnitResponseDTO> getAllUnits() {
-      return new UnitMapper().entityToDTO(unitRepo.getAllUnits());
+    public Page<UnitResponseDTO> getAllUnits(Integer page, Integer size) {
+        PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
+        return new UnitMapper().entityToDTO(unitRepo.getAllUnits(pageRequest));
     }
 }

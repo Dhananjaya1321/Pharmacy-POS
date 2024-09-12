@@ -61,9 +61,12 @@ public class UnitController {
     }
 
     @GetMapping
-    private ResponseEntity<ResponseUtil> getAllUnits() {
+    private ResponseEntity<ResponseUtil> getAllUnits(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
+    ) {
         try {
-            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", unitService.getAllUnits()));
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", unitService.getAllUnits(page,size)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);
