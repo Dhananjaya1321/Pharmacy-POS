@@ -23,8 +23,8 @@ public interface BrandRepo extends JpaRepository<Brand,Integer> {
 
     @Query(value = "SELECT b.id as brand_id, b.address, b.contact,b.description as brand_description, b.name as brand_name, b.website, " +
             "       i.id as item_id, i.name as item_name,i.description as item_description, i.status as item_status," +
-            "       c.name as category_name,c.description as category_description, " +
-            "       u.unit_name, u.unit_symbology " +
+            "       i.id as category_id, c.name as category_name,c.description as category_description, " +
+            "       i.id as unit_id, u.unit_name, u.unit_symbology " +
             "FROM Brand b " +
             "LEFT JOIN item i on b.id = i.brand_id " +
             "LEFT JOIN category c on i.category_id = c.id " +

@@ -55,13 +55,15 @@ public class BrandMapper {
             itemResponseDTO.setDescription(String.valueOf(arr[8]));
 
             CategoryDTO categoryDTO = new CategoryDTO();
-            categoryDTO.setName(String.valueOf(arr[10]));
-            categoryDTO.setDescription(String.valueOf(arr[11]));
+            categoryDTO.setId((Integer) arr[10]);
+            categoryDTO.setName(String.valueOf(arr[11]));
+            categoryDTO.setDescription(String.valueOf(arr[12]));
             itemResponseDTO.setCategory(categoryDTO);
 
             UnitDTO unitDTO = new UnitDTO();
-            unitDTO.setUnitName(String.valueOf(arr[12]));
-            unitDTO.setUnitSymbology(String.valueOf(arr[13]));
+            unitDTO.setId((Integer) arr[13]);
+            unitDTO.setUnitName(String.valueOf(arr[14]));
+            unitDTO.setUnitSymbology(String.valueOf(arr[15]));
             itemResponseDTO.setUnit(unitDTO);
 
             items.add(itemResponseDTO);
