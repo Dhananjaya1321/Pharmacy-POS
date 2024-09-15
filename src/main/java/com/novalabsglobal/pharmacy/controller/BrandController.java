@@ -71,4 +71,19 @@ public class BrandController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<ResponseUtil> getAllBrands(
+            @PathVariable("id") Integer id
+    ) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", brandService.getBrandById(id)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+
+            if (e.getMessage().equals("Brand is not exists!"))
+                return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

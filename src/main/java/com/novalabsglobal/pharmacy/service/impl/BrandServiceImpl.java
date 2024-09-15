@@ -55,6 +55,14 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Page<BrandResponseDTO> getAllBrands(Integer page, Integer size) {
         PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
-        return new BrandMapper().entityToDTO(brandRepo.getAllBrands(pageRequest));
+        return new BrandMapper().brandEntitiesToDTOs(brandRepo.getAllBrands(pageRequest));
+    }
+
+    @Override
+    public BrandResponseDTO getBrandById(Integer id) {
+        if (!brandRepo.existsById(id) || brandRepo.getStatus(id).equals(BrandStatus.DELETED))
+            throw new RuntimeException("Brand is not exists!");
+
+        return new BrandMapper().brandEntityToDTO(brandRepo.getBrandById(id));
     }
 }

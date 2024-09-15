@@ -10,4 +10,6 @@ public interface BrandService {
     boolean deleteBrand(Integer id);
 
     Page<BrandResponseDTO> getAllBrands(Integer page, Integer size);
+
+    BrandResponseDTO getBrandById(Integer id);
 }

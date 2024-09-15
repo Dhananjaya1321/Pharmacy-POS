@@ -27,5 +27,5 @@ public class BrandResponseDTO {
 
     private LocalDateTime lastUpdate;
 
-    private List<ItemDTO> items;
+    private List<ItemResponseDTO> items;
 }
