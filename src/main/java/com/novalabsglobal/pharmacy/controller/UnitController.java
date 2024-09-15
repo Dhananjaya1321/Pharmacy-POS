@@ -54,8 +54,10 @@ public class UnitController {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
 
-            if (e.getMessage().equals("Unit is not exists!"))
+            if (e.getMessage().equals("Unit is not exists!") ||
+                    e.getMessage().equals("This unit cannot be deleted. Some items are under unit"))
                 return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+
             return ExceptionHandler.handleException(e);
         }
     }

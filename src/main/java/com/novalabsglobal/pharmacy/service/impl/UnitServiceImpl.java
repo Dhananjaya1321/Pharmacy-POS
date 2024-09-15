@@ -4,6 +4,7 @@ import com.novalabsglobal.pharmacy.dto.UnitDTO;
 import com.novalabsglobal.pharmacy.dto.UnitResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Unit;
 import com.novalabsglobal.pharmacy.enums.UnitStatus;
+import com.novalabsglobal.pharmacy.repo.ItemRepo;
 import com.novalabsglobal.pharmacy.repo.UnitRepo;
 import com.novalabsglobal.pharmacy.service.UnitService;
 import com.novalabsglobal.pharmacy.service.mapper.UnitMapper;
@@ -19,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UnitServiceImpl implements UnitService {
     @Autowired
     private UnitRepo unitRepo;
+
+    @Autowired
+    private ItemRepo itemRepo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -47,6 +51,9 @@ public class UnitServiceImpl implements UnitService {
     public boolean deleteUnit(Integer id) {
         if (!unitRepo.existsById(id) || unitRepo.getStatus(id).equals(UnitStatus.DELETED))
             throw new RuntimeException("Unit is not exists!");
+
+        if (itemRepo.getCountItemsUnderUnitByUnitId(id) > 0)
+            throw new RuntimeException("This unit cannot be deleted. Some items are under unit");
 
         return unitRepo.deleteUnit(id) > 0;
     }

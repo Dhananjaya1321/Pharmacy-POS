@@ -53,8 +53,10 @@ public class CategoryController {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
 
-            if (e.getMessage().equals("Category is not exists!"))
+            if (e.getMessage().equals("Category is not exists!") ||
+                    e.getMessage().equals("This category cannot be deleted. Some items are under category"))
                 return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+
             return ExceptionHandler.handleException(e);
         }
     }

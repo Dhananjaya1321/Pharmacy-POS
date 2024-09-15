@@ -5,6 +5,7 @@ import com.novalabsglobal.pharmacy.dto.CategoryResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Category;
 import com.novalabsglobal.pharmacy.enums.CategoryStatus;
 import com.novalabsglobal.pharmacy.repo.CategoryRepo;
+import com.novalabsglobal.pharmacy.repo.ItemRepo;
 import com.novalabsglobal.pharmacy.service.CategoryService;
 import com.novalabsglobal.pharmacy.service.mapper.CategoryMapper;
 import org.modelmapper.ModelMapper;
@@ -19,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
+
+    @Autowired
+    private ItemRepo itemRepo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -47,6 +51,9 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean deleteCategory(Integer id) {
         if (!categoryRepo.existsById(id) || categoryRepo.getStatus(id).equals(CategoryStatus.DELETED))
             throw new RuntimeException("Category is not exists!");
+
+        if (itemRepo.getCountItemsUnderCategoryByCategoryId(id) > 0)
+            throw new RuntimeException("This category cannot be deleted. Some items are under category");
 
         return categoryRepo.deleteCategory(id) > 0;
     }
