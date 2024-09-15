@@ -28,4 +28,7 @@ public interface ItemRepo extends JpaRepository<Item,Integer> {
             "left join category c on i.category_id=c.id " +
             "WHERE i.status!='DELETED'",nativeQuery = true)
     Page<Object> getAllItems(PageRequest pageRequest);
+
+    @Query(value = "SELECT COUNT(i.id) FROM Item i WHERE i.brand.id=:id AND i.status!='DELETED'")
+    int getCountItemsUnderBrandByBrandId(Integer id);
 }

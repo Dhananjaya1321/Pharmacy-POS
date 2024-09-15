@@ -5,6 +5,7 @@ import com.novalabsglobal.pharmacy.dto.BrandResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Brand;
 import com.novalabsglobal.pharmacy.enums.BrandStatus;
 import com.novalabsglobal.pharmacy.repo.BrandRepo;
+import com.novalabsglobal.pharmacy.repo.ItemRepo;
 import com.novalabsglobal.pharmacy.service.BrandService;
 import com.novalabsglobal.pharmacy.service.mapper.BrandMapper;
 import org.modelmapper.ModelMapper;
@@ -19,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrandServiceImpl implements BrandService {
     @Autowired
     private BrandRepo brandRepo;
+
+    @Autowired
+    private ItemRepo itemRepo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -47,6 +51,9 @@ public class BrandServiceImpl implements BrandService {
     public boolean deleteBrand(Integer id) {
         if (!brandRepo.existsById(id) || brandRepo.getStatus(id).equals(BrandStatus.DELETED))
             throw new RuntimeException("Brand is not exists!");
+
+        if(itemRepo.getCountItemsUnderBrandByBrandId(id)>0)
+            throw new RuntimeException("This brand cannot be deleted. Some items are under brand names");
 
         return brandRepo.deleteBrand(id) > 0;
     }

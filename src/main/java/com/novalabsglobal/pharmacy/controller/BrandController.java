@@ -40,24 +40,26 @@ public class BrandController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    private ResponseEntity<ResponseUtil> deleteBrand(
-            @PathVariable("id") Integer id
-    ) {
-        try {
-            if (brandService.deleteBrand(id)) {
-                return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully deleted", id));
-            } else {
-                return ResponseEntity.ok(new ResponseUtil(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong!", id));
-            }
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+        @DeleteMapping("/{id}")
+        private ResponseEntity<ResponseUtil> deleteBrand(
+                @PathVariable("id") Integer id
+        ) {
+            try {
+                if (brandService.deleteBrand(id)) {
+                    return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully deleted", id));
+                } else {
+                    return ResponseEntity.ok(new ResponseUtil(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong!", id));
+                }
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
 
-            if (e.getMessage().equals("Brand is not exists!"))
-                return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
-            return ExceptionHandler.handleException(e);
+                if (e.getMessage().equals("Brand is not exists!") ||
+                        e.getMessage().equals("This brand cannot be deleted. Some items are under brand names"))
+                    return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+                
+                return ExceptionHandler.handleException(e);
+            }
         }
-    }
 
     @GetMapping
     private ResponseEntity<ResponseUtil> getAllBrands(
