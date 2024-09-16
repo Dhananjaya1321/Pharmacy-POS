@@ -31,7 +31,8 @@ public class StockController {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
 
-            if (e.getMessage().equals("Stock is not exists!"))
+            if (e.getMessage().equals("Stock is not exists!") ||
+                    e.getMessage().equals("This item cannot be deleted. Some stocks have this item"))
                 return ExceptionHandler.handleCustomException(HttpStatus.NOT_FOUND, e);
 
             return ExceptionHandler.handleException(e);

@@ -10,10 +10,7 @@ import com.novalabsglobal.pharmacy.enums.BrandStatus;
 import com.novalabsglobal.pharmacy.enums.CategoryStatus;
 import com.novalabsglobal.pharmacy.enums.ItemStatus;
 import com.novalabsglobal.pharmacy.enums.UnitStatus;
-import com.novalabsglobal.pharmacy.repo.BrandRepo;
-import com.novalabsglobal.pharmacy.repo.CategoryRepo;
-import com.novalabsglobal.pharmacy.repo.ItemRepo;
-import com.novalabsglobal.pharmacy.repo.UnitRepo;
+import com.novalabsglobal.pharmacy.repo.*;
 import com.novalabsglobal.pharmacy.service.ItemService;
 import com.novalabsglobal.pharmacy.service.mapper.ItemMapper;
 import org.modelmapper.ModelMapper;
@@ -34,6 +31,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private BrandRepo brandRepo;
+
+    @Autowired
+    private StockRepo stockRepo;
 
     @Autowired
     private CategoryRepo categoryRepo;
@@ -78,6 +78,9 @@ public class ItemServiceImpl implements ItemService {
     public boolean deleteItem(Integer id) {
         if (!itemRepo.existsById(id) || itemRepo.getStatus(id).equals(ItemStatus.DELETED))
             throw new RuntimeException("Item is not exists!");
+
+        if (stockRepo.getCountStocksUnderItemByItemId(id) > 0)
+            throw new RuntimeException("This item cannot be deleted. Some stocks have this item");
 
         return itemRepo.deleteItem(id) > 0;
     }

@@ -24,4 +24,7 @@ public interface StockRepo extends JpaRepository<Stock,Integer> {
             "LEFT JOIN item i on i.id = s.item_id " +
             "WHERE s.status!='DELETED'",nativeQuery = true)
     Page<Object> getAllStocks(PageRequest pageRequest);
+
+    @Query(value = "SELECT COUNT(s.id) FROM Stock s WHERE s.item.id=:id AND s.status!='DELETED'")
+    int getCountStocksUnderItemByItemId(Integer id);
 }
