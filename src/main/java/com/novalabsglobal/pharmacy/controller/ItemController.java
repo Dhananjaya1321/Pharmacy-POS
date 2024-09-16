@@ -54,7 +54,8 @@ public class ItemController {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
 
-            if (e.getMessage().equals("Item is not exists!"))
+            if (e.getMessage().equals("Item is not exists!") ||
+                    e.getMessage().equals("This item cannot be deleted. Some stocks have this item"))
                 return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
             return ExceptionHandler.handleException(e);
         }
