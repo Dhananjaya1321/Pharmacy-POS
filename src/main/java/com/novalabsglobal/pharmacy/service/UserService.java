@@ -11,4 +11,6 @@ public interface UserService {
     boolean deleteUser(Integer id);
 
     List<UserResponseDTO> getAllUserDetails();
+
+    UserResponseDTO getAllUserById(Integer id);
 }

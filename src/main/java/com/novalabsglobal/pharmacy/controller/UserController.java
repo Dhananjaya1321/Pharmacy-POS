@@ -68,4 +68,17 @@ public class UserController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<ResponseUtil> getAllUserById( @PathVariable("id") Integer id) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", userService.getAllUserById(id)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+
+            if (e.getMessage().equals("User is not exists!"))
+                return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

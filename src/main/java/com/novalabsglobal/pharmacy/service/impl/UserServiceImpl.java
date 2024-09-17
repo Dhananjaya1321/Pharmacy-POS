@@ -63,4 +63,12 @@ public class UserServiceImpl implements UserService {
     public List<UserResponseDTO> getAllUserDetails() {
         return new UserMapper().entityToDTO(userRepo.getAllUserDetails());
     }
+
+    @Override
+    public UserResponseDTO getAllUserById(Integer id) {
+        if (!userRepo.existsById(id) || userRepo.getStatus(id).equals(UserStatus.DELETED))
+            throw new RuntimeException("User is not exists!");
+
+        return new UserMapper().entityToDTO(userRepo.getAllUserDetails()).get(0);
+    }
 }
