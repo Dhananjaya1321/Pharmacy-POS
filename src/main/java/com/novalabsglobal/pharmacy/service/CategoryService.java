@@ -10,4 +10,6 @@ public interface CategoryService {
     boolean deleteCategory(Integer id);
 
     Page<CategoryResponseDTO> getAllCategories(Integer page, Integer size);
+
+    int getCategoryCount();
 }

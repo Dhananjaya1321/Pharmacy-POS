@@ -20,4 +20,8 @@ public interface CategoryRepo extends JpaRepository<Category,Integer> {
 
     @Query(value = "SELECT c FROM Category c WHERE c.status!='DELETED'")
     Page<Category> getAllCategories(PageRequest pageRequest);
+
+    @Query(value = "SELECT COUNT(c.id) FROM Category c WHERE c.status!='DELETED'")
+    int getCategoryCount();
+
 }

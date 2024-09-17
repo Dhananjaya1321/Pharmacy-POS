@@ -31,4 +31,7 @@ public interface BrandRepo extends JpaRepository<Brand,Integer> {
             "LEFT JOIN unit u on i.unit_id = u.id " +
             "WHERE b.id=:id AND b.status!='DELETED'",nativeQuery = true)
     List<Object> getBrandById(Integer id);
+
+    @Query(value = "SELECT COUNT(b.id) FROM Brand b WHERE b.status!='DELETED'")
+    int getBrandCount();
 }

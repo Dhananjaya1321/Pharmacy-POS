@@ -64,4 +64,9 @@ public class CategoryServiceImpl implements CategoryService {
         PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
         return new CategoryMapper().entityToDTO(categoryRepo.getAllCategories(pageRequest));
     }
+
+    @Override
+    public int getCategoryCount() {
+        return categoryRepo.getCategoryCount();
+    }
 }

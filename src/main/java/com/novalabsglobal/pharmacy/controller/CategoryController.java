@@ -73,4 +73,14 @@ public class CategoryController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/count")
+    private ResponseEntity<ResponseUtil> getCategoryCount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", categoryService.getCategoryCount()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

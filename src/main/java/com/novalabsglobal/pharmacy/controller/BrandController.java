@@ -56,7 +56,7 @@ public class BrandController {
                 if (e.getMessage().equals("Brand is not exists!") ||
                         e.getMessage().equals("This brand cannot be deleted. Some items are under brand names"))
                     return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
-                
+
                 return ExceptionHandler.handleException(e);
             }
         }
@@ -85,6 +85,16 @@ public class BrandController {
 
             if (e.getMessage().equals("Brand is not exists!"))
                 return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+            return ExceptionHandler.handleException(e);
+        }
+    }
+
+    @GetMapping("/count")
+    private ResponseEntity<ResponseUtil> getBrandCount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", brandService.getBrandCount()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);
         }
     }

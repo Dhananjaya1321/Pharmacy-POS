@@ -72,4 +72,9 @@ public class BrandServiceImpl implements BrandService {
 
         return new BrandMapper().brandEntityToDTO(brandRepo.getBrandById(id));
     }
+
+    @Override
+    public int getBrandCount() {
+        return brandRepo.getBrandCount();
+    }
 }

@@ -12,4 +12,6 @@ public interface BrandService {
     Page<BrandResponseDTO> getAllBrands(Integer page, Integer size);
 
     BrandResponseDTO getBrandById(Integer id);
+
+    int getBrandCount();
 }
