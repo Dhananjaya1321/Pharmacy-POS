@@ -81,4 +81,14 @@ public class UserController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/count")
+    private ResponseEntity<ResponseUtil> getUserCount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", userService.getUserCount()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

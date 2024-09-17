@@ -13,4 +13,6 @@ public interface UserService {
     List<UserResponseDTO> getAllUserDetails();
 
     UserResponseDTO getAllUserById(Integer id);
+
+    int getUserCount();
 }

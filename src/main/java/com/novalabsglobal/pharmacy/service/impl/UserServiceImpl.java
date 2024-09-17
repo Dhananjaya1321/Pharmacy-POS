@@ -69,6 +69,11 @@ public class UserServiceImpl implements UserService {
         if (!userRepo.existsById(id) || userRepo.getStatus(id).equals(UserStatus.DELETED))
             throw new RuntimeException("User is not exists!");
 
-        return new UserMapper().entityToDTO(userRepo.getAllUserDetails()).get(0);
+        return new UserMapper().entityToDTO(userRepo.getAllUserById(id)).get(0);
+    }
+
+    @Override
+    public int getUserCount() {
+       return userRepo.getUserCount();
     }
 }

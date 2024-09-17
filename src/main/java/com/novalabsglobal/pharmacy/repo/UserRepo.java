@@ -38,6 +38,9 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             "       u.createdBy, u.updatedBy, u.lastUpdate " +
             "FROM User u " +
             "left join Role r on u.role.id = r.id " +
-            "where u.status!='DELETED'")
-    List<Object> getAllUserById();
+            "where u.status!='DELETED' AND u.id=:id")
+    List<Object> getAllUserById(Integer id);
+
+    @Query(value = "SELECT COUNT(u.id) FROM User u WHERE u.status!='DELETED'")
+    int getUserCount();
 }
