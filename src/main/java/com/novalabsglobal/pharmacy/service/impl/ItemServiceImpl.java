@@ -105,7 +105,6 @@ public class ItemServiceImpl implements ItemService {
         List<Integer> allItemsIds = itemRepo.getAllItemsIds();
         for (int i = 0; i < allItemsIds.size(); i++) {
             int availableStocksCountByItem = itemRepo.getAvailableStocksCountByItem(allItemsIds.get(i));
-            System.out.println(availableStocksCountByItem);
             if (availableStocksCountByItem == 0)
                 countDistinctItemsOutOfStock++;
         }
