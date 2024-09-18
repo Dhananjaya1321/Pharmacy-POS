@@ -110,4 +110,27 @@ public class ItemServiceImpl implements ItemService {
         }
         return countDistinctItemsOutOfStock;
     }
+
+    @Override
+    public int countDistinctItemsRunOutOfStock() {
+        int countDistinctItemsRunOutOfStock = 0;
+        List<Integer> allItemsIds = itemRepo.getAllItemsIds();
+        for (int i = 0; i < allItemsIds.size(); i++) {
+            List<Object> availableStocksCountByItem = itemRepo.getAvailableStocksAvailableQtyAndPurchasedQtyByItem(allItemsIds.get(i));
+
+            double availableQty = 0, purchasedQty = 0;
+            for (Object o : availableStocksCountByItem) {
+                Object[] arr = (Object[]) o;
+                availableQty += (double) arr[0];
+                purchasedQty += (double) arr[1];
+                System.out.println("availableQty"+availableQty);
+                System.out.println("purchasedQty"+purchasedQty);
+            }
+
+            if (availableQty<=(purchasedQty*(itemRepo.getItemReorderLevelByItemId(allItemsIds.get(i))*0.01)))
+                countDistinctItemsRunOutOfStock++;
+
+        }
+        return countDistinctItemsRunOutOfStock;
+    }
 }

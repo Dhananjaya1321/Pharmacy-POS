@@ -47,6 +47,12 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
             "AND s.item.id=:id")
     int getAvailableStocksCountByItem(Integer id);
 
+    @Query("SELECT s.availableQty, s.purchasedQty FROM Stock s WHERE s.item.id=:id AND s.status='ACTIVE'")
+    List<Object> getAvailableStocksAvailableQtyAndPurchasedQtyByItem(Integer id);
+
     @Query("SELECT i.id FROM Item i WHERE i.status!='DELETED'")
     List<Integer> getAllItemsIds();
+
+    @Query("SELECT i.reOrderLevel FROM Item i WHERE i.id=:id")
+    double getItemReorderLevelByItemId(Integer id);
 }
