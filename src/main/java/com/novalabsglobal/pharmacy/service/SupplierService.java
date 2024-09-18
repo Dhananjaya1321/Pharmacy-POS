@@ -10,4 +10,6 @@ public interface SupplierService {
     boolean deleteSupplier(Integer id);
 
     Page<SupplierResponseDTO> getAllSuppliers(Integer page, Integer size);
+
+    int getSuppliersCount();
 }

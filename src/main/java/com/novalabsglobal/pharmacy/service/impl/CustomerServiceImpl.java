@@ -56,4 +56,9 @@ public class CustomerServiceImpl implements CustomerService {
         PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
         return new CustomerMapper().entityToDTO(customerRepo.getAllCustomers(pageRequest));
     }
+
+    @Override
+    public int getCustomersCount() {
+        return customerRepo.getCustomersCount();
+    }
 }

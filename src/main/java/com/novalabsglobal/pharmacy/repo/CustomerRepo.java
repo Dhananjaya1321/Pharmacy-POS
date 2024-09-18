@@ -21,4 +21,7 @@ public interface CustomerRepo extends JpaRepository<Customer,Integer> {
     @Query(value = "SELECT c.id,c.name,c.contact,c.address,c.email,c.nic,c.status,c.createdBy,c.updatedBy,c.lastUpdate " +
             "FROM Customer c WHERE c.status!='DELETED'")
     Page<Object> getAllCustomers(PageRequest pageRequest);
+
+    @Query(value = "SELECT COUNT(c.id) FROM Customer c WHERE c.status!='DELETED'")
+    int getCustomersCount();
 }

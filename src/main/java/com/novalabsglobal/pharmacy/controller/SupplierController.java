@@ -71,4 +71,14 @@ public class SupplierController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/count")
+    private ResponseEntity<ResponseUtil> getSuppliersCount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", supplierService.getSuppliersCount()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

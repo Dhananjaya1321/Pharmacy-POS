@@ -10,4 +10,6 @@ public interface CustomerService {
     boolean deleteCustomer(Integer id);
 
     Page<CustomerResponseDTO> getAllCustomers(Integer page, Integer size);
+
+    int getCustomersCount();
 }

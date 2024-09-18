@@ -22,4 +22,7 @@ public interface SupplierRepo extends JpaRepository<Supplier, Integer> {
 
     @Query(value = "SELECT s FROM Supplier s WHERE s.status!='DELETED'")
     Page<Supplier> getAllSuppliers(Pageable pageable);
+
+    @Query(value = "SELECT COUNT(s.id) FROM Supplier s WHERE s.status!='DELETED'")
+    int getSuppliersCount();
 }

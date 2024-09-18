@@ -73,4 +73,14 @@ public class CustomerController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/count")
+    private ResponseEntity<ResponseUtil> getCustomersCount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", customerService.getCustomersCount()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }
