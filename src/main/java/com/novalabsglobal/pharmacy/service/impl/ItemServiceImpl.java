@@ -91,4 +91,9 @@ public class ItemServiceImpl implements ItemService {
         PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
         return new ItemMapper().entityToDTO(itemRepo.getAllItems(pageRequest));
     }
+
+    @Override
+    public int countDistinctAvailableItemsInStock() {
+        return itemRepo.countDistinctAvailableItemsInStock();
+    }
 }

@@ -73,4 +73,14 @@ public class ItemController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/in-stock/count")
+    private ResponseEntity<ResponseUtil> countDistinctAvailableItemsInStock() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", itemService.countDistinctAvailableItemsInStock()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

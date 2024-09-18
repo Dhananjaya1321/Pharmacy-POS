@@ -37,4 +37,7 @@ public interface ItemRepo extends JpaRepository<Item,Integer> {
 
     @Query(value = "SELECT COUNT(i.id) FROM Item i WHERE i.unit.id=:id AND i.status!='DELETED'")
     int getCountItemsUnderUnitByUnitId(Integer id);
+
+    @Query("SELECT COUNT(DISTINCT s.item.id) FROM Stock s WHERE s.availableQty > 0 AND s.expiryDate > CURRENT_DATE")
+    int countDistinctAvailableItemsInStock();
 }

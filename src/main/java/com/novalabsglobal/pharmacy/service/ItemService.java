@@ -10,4 +10,6 @@ public interface ItemService {
     boolean deleteItem(Integer id);
 
     Page<ItemResponseDTO> getAllItems(Integer page, Integer size);
+
+    int countDistinctAvailableItemsInStock();
 }
