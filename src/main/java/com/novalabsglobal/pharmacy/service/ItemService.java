@@ -12,4 +12,6 @@ public interface ItemService {
     Page<ItemResponseDTO> getAllItems(Integer page, Integer size);
 
     int countDistinctAvailableItemsInStock();
+
+    int countDistinctItemsOutOfStock();
 }

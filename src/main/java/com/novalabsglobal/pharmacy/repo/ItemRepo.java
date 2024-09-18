@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ItemRepo extends JpaRepository<Item,Integer> {
+public interface ItemRepo extends JpaRepository<Item, Integer> {
     @Query(value = "SELECT i.status FROM Item i WHERE i.id=:id")
     ItemStatus getStatus(Integer id);
 
@@ -26,7 +26,7 @@ public interface ItemRepo extends JpaRepository<Item,Integer> {
             "left join unit u on i.unit_id = u.id " +
             "left join brand b on i.brand_id=b.id " +
             "left join category c on i.category_id=c.id " +
-            "WHERE i.status!='DELETED'",nativeQuery = true)
+            "WHERE i.status!='DELETED'", nativeQuery = true)
     Page<Object> getAllItems(PageRequest pageRequest);
 
     @Query(value = "SELECT COUNT(i.id) FROM Item i WHERE i.brand.id=:id AND i.status!='DELETED'")
@@ -40,4 +40,11 @@ public interface ItemRepo extends JpaRepository<Item,Integer> {
 
     @Query("SELECT COUNT(DISTINCT s.item.id) FROM Stock s WHERE s.availableQty > 0 AND s.expiryDate > CURRENT_DATE")
     int countDistinctAvailableItemsInStock();
+
+    @Query("SELECT COUNT(s.id) FROM Stock s WHERE s.availableQty > 0 AND s.expiryDate > CURRENT_DATE AND s.status='ACTIVE' " +
+            "AND s.item.id=:id")
+    int getAvailableStocksCountByItem(Integer id);
+
+    @Query("SELECT i.id FROM Item i WHERE i.status!='DELETED'")
+    List<Integer> getAllItemsIds();
 }

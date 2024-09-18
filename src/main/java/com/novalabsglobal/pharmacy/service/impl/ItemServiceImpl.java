@@ -20,6 +20,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ItemServiceImpl implements ItemService {
@@ -95,5 +97,18 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public int countDistinctAvailableItemsInStock() {
         return itemRepo.countDistinctAvailableItemsInStock();
+    }
+
+    @Override
+    public int countDistinctItemsOutOfStock() {
+        int countDistinctItemsOutOfStock = 0;
+        List<Integer> allItemsIds = itemRepo.getAllItemsIds();
+        for (int i = 0; i < allItemsIds.size(); i++) {
+            int availableStocksCountByItem = itemRepo.getAvailableStocksCountByItem(allItemsIds.get(i));
+            System.out.println(availableStocksCountByItem);
+            if (availableStocksCountByItem == 0)
+                countDistinctItemsOutOfStock++;
+        }
+        return countDistinctItemsOutOfStock;
     }
 }
