@@ -55,4 +55,8 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
 
     @Query("SELECT i.reOrderLevel FROM Item i WHERE i.id=:id")
     double getItemReorderLevelByItemId(Integer id);
+
+    @Query("SELECT COUNT(DISTINCT s.item.id) FROM Stock s WHERE " +
+            "s.availableQty > 0 AND s.expiryDate < CURRENT_DATE AND s.status='ACTIVE'")
+    int getExpiredAvailableStockItemsCount();
 }

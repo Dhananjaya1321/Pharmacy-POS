@@ -94,11 +94,14 @@ public class ItemServiceImpl implements ItemService {
         return new ItemMapper().entityToDTO(itemRepo.getAllItems(pageRequest));
     }
 
+    /*Not expired and in-stock available items*/
     @Override
     public int countDistinctAvailableItemsInStock() {
         return itemRepo.countDistinctAvailableItemsInStock();
     }
 
+
+    /*Expired or out-of-stocks items*/
     @Override
     public int countDistinctItemsOutOfStock() {
         int countDistinctItemsOutOfStock = 0;
@@ -111,6 +114,7 @@ public class ItemServiceImpl implements ItemService {
         return countDistinctItemsOutOfStock;
     }
 
+    /*Items currently available and run out of stock*/
     @Override
     public int countDistinctItemsRunOutOfStock() {
         int countDistinctItemsRunOutOfStock = 0;
@@ -123,8 +127,6 @@ public class ItemServiceImpl implements ItemService {
                 Object[] arr = (Object[]) o;
                 availableQty += (double) arr[0];
                 purchasedQty += (double) arr[1];
-                System.out.println("availableQty"+availableQty);
-                System.out.println("purchasedQty"+purchasedQty);
             }
 
             if (availableQty<=(purchasedQty*(itemRepo.getItemReorderLevelByItemId(allItemsIds.get(i))*0.01)))
@@ -132,5 +134,9 @@ public class ItemServiceImpl implements ItemService {
 
         }
         return countDistinctItemsRunOutOfStock;
+    }
+    @Override
+    public int getExpiredAvailableStockItemsCount() {
+        return itemRepo.getExpiredAvailableStockItemsCount();
     }
 }

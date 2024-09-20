@@ -92,10 +92,20 @@ public class ItemController {
             return ExceptionHandler.handleException(e);
         }
     }
+
     @GetMapping("/run-out-stock/count")
     private ResponseEntity<ResponseUtil> countDistinctItemsRunOutOfStock() {
         try {
             return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", itemService.countDistinctItemsRunOutOfStock()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
+    @GetMapping("/expired-available-stock/count")
+    private ResponseEntity<ResponseUtil> getExpiredAvailableStockItemsCount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", itemService.getExpiredAvailableStockItemsCount()));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return ExceptionHandler.handleException(e);
