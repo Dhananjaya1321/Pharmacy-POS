@@ -139,4 +139,9 @@ public class ItemServiceImpl implements ItemService {
     public int getExpiredAvailableStockItemsCount() {
         return itemRepo.getExpiredAvailableStockItemsCount();
     }
+
+    @Override
+    public int getAboutToExpireAvailableStockItemsCount() {
+        return itemRepo.getAboutToExpireAvailableStockItemsCount();
+    }
 }

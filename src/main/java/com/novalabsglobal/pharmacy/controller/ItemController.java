@@ -111,4 +111,14 @@ public class ItemController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/about-to-expire-available-stock/count")
+    private ResponseEntity<ResponseUtil> getAboutToExpireAvailableStockItemsCount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", itemService.getAboutToExpireAvailableStockItemsCount()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

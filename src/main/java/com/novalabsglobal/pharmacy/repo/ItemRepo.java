@@ -59,4 +59,11 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
     @Query("SELECT COUNT(DISTINCT s.item.id) FROM Stock s WHERE " +
             "s.availableQty > 0 AND s.expiryDate < CURRENT_DATE AND s.status='ACTIVE'")
     int getExpiredAvailableStockItemsCount();
+
+    @Query(value = "SELECT COUNT(DISTINCT s.item_id) FROM Stock s " +
+            "WHERE s.available_qty > 0 " +
+            "AND (CAST(s.expiry_date AS DATE) > CURRENT_DATE " +
+            "AND CAST(s.expiry_date AS DATE) < CURRENT_DATE + INTERVAL 14 DAY) " +
+            "AND s.status = 'ACTIVE'", nativeQuery = true)
+    int getAboutToExpireAvailableStockItemsCount();
 }

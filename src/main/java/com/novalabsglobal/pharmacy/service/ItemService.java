@@ -18,4 +18,6 @@ public interface ItemService {
     int countDistinctItemsRunOutOfStock();
 
     int getExpiredAvailableStockItemsCount();
+
+    int getAboutToExpireAvailableStockItemsCount();
 }
