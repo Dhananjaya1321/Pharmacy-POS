@@ -83,7 +83,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/check-login")
+    @GetMapping("/check-login")
     private ResponseEntity<ResponseUtil> checkLogin(
             @RequestParam("emailOrUsername") String emailOrUsername,
             @RequestParam("password") String password
