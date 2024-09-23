@@ -1,5 +1,6 @@
 package com.novalabsglobal.pharmacy.service.impl;
 
+import com.novalabsglobal.pharmacy.dto.RoleDTO;
 import com.novalabsglobal.pharmacy.dto.UserDTO;
 import com.novalabsglobal.pharmacy.dto.UserResponseDTO;
 import com.novalabsglobal.pharmacy.entity.Role;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
             dto.setStatus(UserStatus.ACTIVE);
         } else {
-            if (!userRepo.existsById(dto.getId())|| userRepo.getStatus(dto.getId()).equals(UserStatus.DELETED))
+            if (!userRepo.existsById(dto.getId()) || userRepo.getStatus(dto.getId()).equals(UserStatus.DELETED))
                 throw new RuntimeException("User is not exists!");
 
             dto.setStatus(userRepo.getStatus(dto.getId()));
@@ -74,6 +75,34 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int getUserCount() {
-       return userRepo.getUserCount();
+        return userRepo.getUserCount();
+    }
+
+    @Override
+    public UserResponseDTO checkLogin(String emailOrUsername, String password) {
+        Object[] user = (Object[]) userRepo.searchUserByUsernameOrEmail(emailOrUsername);
+        if (user==null)
+            throw new RuntimeException("Incorrect email or password");
+
+        String email = String.valueOf(user[0]);
+        String username = String.valueOf(user[1]);
+        String password1 = String.valueOf(user[2]);
+        String role = String.valueOf(user[3]);
+
+
+        UserResponseDTO userResponseDTO = new UserResponseDTO();
+        if (password1.equals(password)) {
+            userResponseDTO.setEmail(email);
+            userResponseDTO.setUsername(username);
+            userResponseDTO.setPassword(password);
+
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setName(role);
+
+            userResponseDTO.setRole(roleDTO);
+        }else {
+            throw new RuntimeException("Incorrect password");
+        }
+        return userResponseDTO;
     }
 }

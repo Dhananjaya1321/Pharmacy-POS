@@ -25,7 +25,7 @@ public class UserController {
             @RequestBody UserDTO dto
     ) {
         try {
-            String msg = (dto.getId() == null || dto.getId()==0) ? "User saved successfully." : "User updated successfully.";
+            String msg = (dto.getId() == null || dto.getId() == 0) ? "User saved successfully." : "User updated successfully.";
             return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, msg, userService.saveOrUpdateUser(dto)));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -70,7 +70,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<ResponseUtil> getAllUserById( @PathVariable("id") Integer id) {
+    private ResponseEntity<ResponseUtil> getAllUserById(@PathVariable("id") Integer id) {
         try {
             return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", userService.getAllUserById(id)));
         } catch (Exception e) {
@@ -78,6 +78,24 @@ public class UserController {
 
             if (e.getMessage().equals("User is not exists!"))
                 return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+            return ExceptionHandler.handleException(e);
+        }
+    }
+
+
+    @PostMapping("/check-login")
+    private ResponseEntity<ResponseUtil> checkLogin(
+            @RequestParam("emailOrUsername") String emailOrUsername,
+            @RequestParam("password") String password
+    ) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", userService.checkLogin(emailOrUsername, password)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+
+            if (e.getMessage().equals("Incorrect email or password") || e.getMessage().equals("Incorrect password"))
+                return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+
             return ExceptionHandler.handleException(e);
         }
     }

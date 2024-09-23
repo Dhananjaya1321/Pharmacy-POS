@@ -27,7 +27,11 @@ public class User {
     private String address;
     private String contact;
     private String nic;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String username;
     private String password;
 

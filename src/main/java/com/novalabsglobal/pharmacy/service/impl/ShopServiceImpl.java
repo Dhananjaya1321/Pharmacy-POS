@@ -45,4 +45,9 @@ public class ShopServiceImpl implements ShopService {
                 ShopDTO.class
         );
     }
+
+    @Override
+    public boolean checkHasAccount() {
+        return shopRepo.checkHasAccount()>0;
+    }
 }

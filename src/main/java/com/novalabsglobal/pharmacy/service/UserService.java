@@ -15,4 +15,6 @@ public interface UserService {
     UserResponseDTO getAllUserById(Integer id);
 
     int getUserCount();
+
+    UserResponseDTO checkLogin(String emailOrUsername, String password);
 }

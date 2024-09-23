@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Objects;
 
 public interface UserRepo extends JpaRepository<User, Integer> {
     @Query(value = "SELECT u.status FROM User u WHERE u.id=:id")
@@ -43,4 +42,10 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT COUNT(u.id) FROM User u WHERE u.status!='DELETED'")
     int getUserCount();
+
+    @Query(value = "SELECT u.email, u.username,u.password, r.name "+
+            "FROM User u " +
+            "left join Role r on u.role.id = r.id " +
+            "where u.status!='DELETED' AND (u.email=:emailOrUsername OR u.username=:emailOrUsername)")
+    Object searchUserByUsernameOrEmail(String emailOrUsername);
 }

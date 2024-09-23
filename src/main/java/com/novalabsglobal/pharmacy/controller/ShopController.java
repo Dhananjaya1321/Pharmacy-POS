@@ -40,6 +40,16 @@ public class ShopController {
         }
     }
 
+    @GetMapping("/check-has-account")
+    private ResponseEntity<ResponseUtil> checkHasAccount() {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", shopService.checkHasAccount()));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
+
     @GetMapping
     private ResponseEntity<ResponseUtil> getShopDetails() {
         try {

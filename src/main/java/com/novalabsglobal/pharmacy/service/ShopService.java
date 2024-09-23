@@ -6,4 +6,6 @@ public interface ShopService {
     ShopDTO saveOrUpdateShop(ShopDTO dto);
 
     ShopDTO getShopDetails();
+
+    boolean checkHasAccount();
 }
