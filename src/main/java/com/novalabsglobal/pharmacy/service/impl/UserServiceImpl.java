@@ -9,6 +9,7 @@ import com.novalabsglobal.pharmacy.enums.UserStatus;
 import com.novalabsglobal.pharmacy.repo.UserRepo;
 import com.novalabsglobal.pharmacy.service.UserService;
 import com.novalabsglobal.pharmacy.service.mapper.UserMapper;
+import com.novalabsglobal.pharmacy.util.OTPGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private EmailServiceImpl emailService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -82,7 +86,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO checkLogin(String emailOrUsername, String password) {
         Object[] user = (Object[]) userRepo.searchUserByUsernameOrEmail(emailOrUsername);
         if (user==null)
-            throw new RuntimeException("Incorrect email or password");
+            throw new RuntimeException("Incorrect email or username");
 
         String email = String.valueOf(user[0]);
         String username = String.valueOf(user[1]);
@@ -104,5 +108,26 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Incorrect password");
         }
         return userResponseDTO;
+    }
+
+    @Override
+    public String checkEmailAndSendOTP(String emailOrUsername) {
+        Object[] user = (Object[]) userRepo.searchUserByUsernameOrEmail(emailOrUsername);
+        if (user==null)
+            throw new RuntimeException("Incorrect email");
+
+        String email = String.valueOf(user[0]);
+        String otp = OTPGenerator.generateOTP();
+        String subject = "Password Reset OTP - Smart Pharmacy";
+        String message = "<h1>Your OTP for Password Reset</h1>" +
+                "<p>Dear User,</p>" +
+                "<p>Your OTP for password reset is <strong>" + otp + "</strong>.</p>" +
+                "<p>This OTP is valid for <strong>10 minutes</strong>.</p>" +
+                "<p>Thank you for using Smart Pharmacy!</p>" +
+                "<p>Best Regards,<br/>Nova Labs Global Team</p>";
+
+        emailService.sendSimpleEmail(email,subject,message);
+
+        return otp;
     }
 }

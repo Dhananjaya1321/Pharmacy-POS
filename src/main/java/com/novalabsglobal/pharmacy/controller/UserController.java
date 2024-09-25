@@ -93,7 +93,23 @@ public class UserController {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
 
-            if (e.getMessage().equals("Incorrect email or password") || e.getMessage().equals("Incorrect password"))
+            if (e.getMessage().equals("Incorrect email or username") || e.getMessage().equals("Incorrect password"))
+                return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
+
+            return ExceptionHandler.handleException(e);
+        }
+    }
+
+    @GetMapping("/check-email-and-send-otp")
+    private ResponseEntity<ResponseUtil> checkEmailAndSendOTP(
+            @RequestParam("emailOrUsername") String emailOrUsername
+    ) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", userService.checkEmailAndSendOTP(emailOrUsername)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+
+            if (e.getMessage().equals("Incorrect email"))
                 return ExceptionHandler.handleCustomException(HttpStatus.BAD_REQUEST, e);
 
             return ExceptionHandler.handleException(e);
