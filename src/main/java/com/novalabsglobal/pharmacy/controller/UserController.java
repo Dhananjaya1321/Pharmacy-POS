@@ -40,6 +40,16 @@ public class UserController {
         }
     }
 
+    @PostMapping("/update-password")
+    private ResponseEntity<ResponseUtil> updatePassword(@RequestParam String email, @RequestParam String newPassword) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully updated", userService.updatePassword(email,newPassword)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
+
     @DeleteMapping("/{id}")
     private ResponseEntity<ResponseUtil> deleteUser(
             @PathVariable("id") Integer id

@@ -19,4 +19,6 @@ public interface UserService {
     UserResponseDTO checkLogin(String emailOrUsername, String password);
 
     String checkEmailAndSendOTP(String emailOrUsername);
+
+    boolean updatePassword(String email, String newPassword);
 }

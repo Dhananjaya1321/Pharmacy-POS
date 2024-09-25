@@ -48,4 +48,8 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             "left join Role r on u.role.id = r.id " +
             "where u.status!='DELETED' AND (u.email=:emailOrUsername OR u.username=:emailOrUsername)")
     Object searchUserByUsernameOrEmail(String emailOrUsername);
+
+    @Modifying
+    @Query("UPDATE User u SET u.password=:newPassword WHERE u.email=:email")
+    int updatePassword(String email, String newPassword);
 }

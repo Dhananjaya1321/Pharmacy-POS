@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDTO checkLogin(String emailOrUsername, String password) {
         Object[] user = (Object[]) userRepo.searchUserByUsernameOrEmail(emailOrUsername);
-        if (user==null)
+        if (user == null)
             throw new RuntimeException("Incorrect email or username");
 
         String email = String.valueOf(user[0]);
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
             roleDTO.setName(role);
 
             userResponseDTO.setRole(roleDTO);
-        }else {
+        } else {
             throw new RuntimeException("Incorrect password");
         }
         return userResponseDTO;
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String checkEmailAndSendOTP(String emailOrUsername) {
         Object[] user = (Object[]) userRepo.searchUserByUsernameOrEmail(emailOrUsername);
-        if (user==null)
+        if (user == null)
             throw new RuntimeException("Incorrect email");
 
         String email = String.valueOf(user[0]);
@@ -126,8 +126,13 @@ public class UserServiceImpl implements UserService {
                 "<p>Thank you for using Smart Pharmacy!</p>" +
                 "<p>Best Regards,<br/>Nova Labs Global Team</p>";
 
-        emailService.sendSimpleEmail(email,subject,message);
+        emailService.sendSimpleEmail(email, subject, message);
 
         return otp;
+    }
+
+    @Override
+    public boolean updatePassword(String email, String newPassword) {
+        return userRepo.updatePassword(email, newPassword) > 0;
     }
 }
