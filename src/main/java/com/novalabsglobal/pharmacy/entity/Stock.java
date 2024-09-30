@@ -34,8 +34,20 @@ public class Stock {
     @Column(name = "purchased_qty")
     private double purchasedQty;
 
+    @Column(name = "purchase_price_per_unit")
+    private double purchasePricePerUnit;
+
     @Column(name = "purchased_discount")
     private double purchasedDiscount;
+
+    @Column(name = "total_amount")
+    private double totalAmount;
+
+    @Column(name = "selling_price_per_unit")
+    private double sellingPricePerUnit;
+
+    @Column(name = "selling_discount_per_unit")
+    private double sellingDiscountPerUnit;
 
     @Column(name = "expiry_date")
     private Date expiryDate;

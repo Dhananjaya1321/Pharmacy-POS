@@ -1,6 +1,7 @@
 package com.novalabsglobal.pharmacy.dto;
 
 import com.novalabsglobal.pharmacy.enums.StockStatus;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,10 @@ public class StockDTO {
     private double availableQty;
     private double purchasedQty;
     private double purchasedDiscount;
+    private double purchasePricePerUnit;
+    private double totalAmount;
+    private double sellingPricePerUnit;
+    private double sellingDiscountPerUnit;
     private Date expiryDate;
     private double purchased_return_amount;
     private double purchased_return_qty;

@@ -19,7 +19,9 @@ public interface StockRepo extends JpaRepository<Stock,Integer> {
     int deleteStock(Integer id);
 
     @Query(value = "SELECT s.id as stock_id, s.expiry_date, " +
-            "s.purchased_qty, s.purchased_amount, s.purchased_discount, s.available_qty, s.description, " +
+            "s.purchased_qty, s.purchased_amount, s.purchased_discount, s.available_qty, " +
+            "s.purchase_price_per_unit, s.selling_price_per_unit, s.selling_discount_per_unit, s.total_amount, " +
+            "s.description, " +
             "i.id as item_id, i.name FROM stock s " +
             "LEFT JOIN item i on i.id = s.item_id " +
             "WHERE s.status!='DELETED'",nativeQuery = true)

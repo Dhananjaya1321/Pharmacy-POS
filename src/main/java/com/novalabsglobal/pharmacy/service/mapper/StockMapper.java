@@ -22,11 +22,15 @@ public class StockMapper {
             stockResponseDTO.setPurchasedAmount((Double) arr[3]);
             stockResponseDTO.setPurchasedDiscount((Double) arr[4]);
             stockResponseDTO.setAvailableQty((Double) arr[5]);
-            stockResponseDTO.setDescription(String.valueOf(arr[6]));
+            stockResponseDTO.setPurchasePricePerUnit((Double) arr[6]);
+            stockResponseDTO.setSellingPricePerUnit((Double) arr[7]);
+            stockResponseDTO.setSellingDiscountPerUnit((Double) arr[8]);
+            stockResponseDTO.setTotalAmount((Double) arr[9]);
+            stockResponseDTO.setDescription(String.valueOf(arr[10]));
 
             ItemDTO itemDTO = new ItemDTO();
-            itemDTO.setId((Integer) arr[7]);
-            itemDTO.setName(String.valueOf(arr[8]));
+            itemDTO.setId((Integer) arr[11]);
+            itemDTO.setName(String.valueOf(arr[12]));
             stockResponseDTO.setItem(itemDTO);
 
             dtos.add(stockResponseDTO);

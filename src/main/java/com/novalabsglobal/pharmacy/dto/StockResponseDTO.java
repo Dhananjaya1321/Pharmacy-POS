@@ -19,6 +19,10 @@ public class StockResponseDTO {
     private double availableQty;
     private double purchasedQty;
     private double purchasedDiscount;
+    private double purchasePricePerUnit;
+    private double totalAmount;
+    private double sellingPricePerUnit;
+    private double sellingDiscountPerUnit;
     private Date expiryDate;
     private double purchased_return_amount;
     private double purchased_return_qty;
