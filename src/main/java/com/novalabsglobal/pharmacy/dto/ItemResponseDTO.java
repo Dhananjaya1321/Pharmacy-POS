@@ -28,4 +28,5 @@ public class ItemResponseDTO {
     private CategoryDTO category;
     private BrandDTO brand;
     private UnitDTO unit;
+    private StockDTO stock;/*this attribute added for order page oppressions*/
 }

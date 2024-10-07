@@ -98,4 +98,18 @@ public class BrandController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/search")
+    private ResponseEntity<ResponseUtil> searchBrands(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String name
+    ) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", brandService.searchBrands(page,size,name)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

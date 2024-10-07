@@ -24,4 +24,8 @@ public interface CustomerRepo extends JpaRepository<Customer,Integer> {
 
     @Query(value = "SELECT COUNT(c.id) FROM Customer c WHERE c.status!='DELETED'")
     int getCustomersCount();
+
+    @Query("SELECT c.id,c.name,c.contact FROM Customer c WHERE c.status!='DELETED' AND " +
+            "LOWER(c.name) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(c.contact) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<Object> searchCustomers(String query);
 }

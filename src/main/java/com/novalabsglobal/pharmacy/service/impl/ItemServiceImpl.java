@@ -1,7 +1,6 @@
 package com.novalabsglobal.pharmacy.service.impl;
 
-import com.novalabsglobal.pharmacy.dto.ItemDTO;
-import com.novalabsglobal.pharmacy.dto.ItemResponseDTO;
+import com.novalabsglobal.pharmacy.dto.*;
 import com.novalabsglobal.pharmacy.entity.Brand;
 import com.novalabsglobal.pharmacy.entity.Category;
 import com.novalabsglobal.pharmacy.entity.Item;
@@ -20,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -143,5 +143,41 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public int getAboutToExpireAvailableStockItemsCount() {
         return itemRepo.getAboutToExpireAvailableStockItemsCount();
+    }
+
+    @Override
+    public List<ItemResponseDTO> searchItems(String query) {
+        List<Object> objects = itemRepo.searchItems(query);
+        List<ItemResponseDTO> dtos = new ArrayList<>();
+
+        for(Object o:objects){
+            Object[] arr= (Object[]) o;
+            ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
+            itemResponseDTO.setId((Integer) arr[0]);
+            itemResponseDTO.setName(String.valueOf(arr[1]));
+
+            UnitDTO unitDTO = new UnitDTO();
+            unitDTO.setUnitName(String.valueOf(arr[2]));
+            unitDTO.setUnitSymbology(String.valueOf(arr[3]));
+            itemResponseDTO.setUnit(unitDTO);
+
+            BrandDTO brandDTO = new BrandDTO();
+            brandDTO.setName(String.valueOf(arr[4]));
+            itemResponseDTO.setBrand(brandDTO);
+
+            CategoryDTO categoryDTO = new CategoryDTO();
+            categoryDTO.setName(String.valueOf(arr[5]));
+            itemResponseDTO.setCategory(categoryDTO);
+
+            StockDTO stockDTO = new StockDTO();
+            stockDTO.setId((Integer) arr[6]);
+            stockDTO.setAvailableQty((Double) arr[7]);
+            stockDTO.setSellingPricePerUnit((Double) arr[8]);
+            stockDTO.setSellingDiscountPerUnit((Double) arr[9]);
+            itemResponseDTO.setStock(stockDTO);
+
+            dtos.add(itemResponseDTO);
+        }
+        return dtos;
     }
 }

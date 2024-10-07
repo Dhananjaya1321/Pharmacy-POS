@@ -77,4 +77,10 @@ public class BrandServiceImpl implements BrandService {
     public int getBrandCount() {
         return brandRepo.getBrandCount();
     }
+
+    @Override
+    public Page<BrandResponseDTO> searchBrands(Integer page, Integer size, String name) {
+        PageRequest pageRequest = (page == null && size == null) ? null : PageRequest.of(page, size);
+        return new BrandMapper().brandEntitiesToDTOs(brandRepo.searchBrands(name,pageRequest));
+    }
 }

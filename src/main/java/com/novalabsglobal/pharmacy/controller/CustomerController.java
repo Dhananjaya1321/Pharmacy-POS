@@ -83,4 +83,16 @@ public class CustomerController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/search")
+    private ResponseEntity<ResponseUtil> searchCustomers(
+            @RequestParam String query
+    ) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", customerService.searchCustomers(query)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

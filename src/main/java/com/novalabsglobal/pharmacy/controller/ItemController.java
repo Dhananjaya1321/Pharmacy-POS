@@ -121,4 +121,16 @@ public class ItemController {
             return ExceptionHandler.handleException(e);
         }
     }
+
+    @GetMapping("/search")
+    private ResponseEntity<ResponseUtil> searchItems(
+            @RequestParam String query
+    ) {
+        try {
+            return ResponseEntity.ok(new ResponseUtil(HttpStatus.OK, "Successfully loaded", itemService.searchItems(query)));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ExceptionHandler.handleException(e);
+        }
+    }
 }

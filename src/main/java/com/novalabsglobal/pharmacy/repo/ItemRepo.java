@@ -66,4 +66,24 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
             "AND CAST(s.expiry_date AS DATE) < CURRENT_DATE + INTERVAL 14 DAY) " +
             "AND s.status = 'ACTIVE'", nativeQuery = true)
     int getAboutToExpireAvailableStockItemsCount();
+
+    @Query(
+            value = "SELECT i.id, i.name as item_name, " +
+                    "u.unit_name as unit_name, u.unit_symbology, " +
+                    "b.name as brand_name, " +
+                    "c.name as category_name," +
+                    "s.id as stock_id, s.available_qty, s.selling_price_per_unit, s.selling_discount_per_unit " +
+                    "FROM item i " +
+                    "left join unit u on i.unit_id = u.id " +
+                    "left join brand b on i.brand_id=b.id " +
+                    "left join category c on i.category_id=c.id " +
+                    "left join stock s on i.id = s.item_id " +
+                    "WHERE i.status!='DELETED' AND s.status!='DELETED' AND " +
+                    "s.available_qty > 0 AND s.expiry_date > CURRENT_DATE " +  // Removed the extra AND here
+                    "AND (LOWER(i.name) LIKE LOWER(CONCAT('%', :query ,'%')) " +
+                    "OR LOWER(b.name) LIKE LOWER(CONCAT('%', :query , '%'))) ",
+            nativeQuery = true
+    )
+    List<Object> searchItems(String query);
+
 }

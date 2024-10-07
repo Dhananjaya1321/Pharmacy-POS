@@ -4,6 +4,8 @@ import com.novalabsglobal.pharmacy.dto.ItemDTO;
 import com.novalabsglobal.pharmacy.dto.ItemResponseDTO;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface ItemService {
     ItemDTO saveOrUpdateItem(ItemDTO dto);
 
@@ -20,4 +22,6 @@ public interface ItemService {
     int getExpiredAvailableStockItemsCount();
 
     int getAboutToExpireAvailableStockItemsCount();
+
+    List<ItemResponseDTO> searchItems(String query);
 }
