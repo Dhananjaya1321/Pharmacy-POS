@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrdersResponseDTO {
     private Integer id;
+    private String reference;
     private Date orderDate;
     private double discount;
     private double total;

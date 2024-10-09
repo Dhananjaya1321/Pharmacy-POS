@@ -25,6 +25,8 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String reference;
+
     @Column(name = "order_date")
     private Date orderDate;
 

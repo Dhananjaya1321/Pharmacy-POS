@@ -8,4 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface OrderRepo extends JpaRepository<Orders,Integer> {
     @Query(value = "SELECT o.status FROM Orders o WHERE o.id=:id")
     OrderStatus getStatus(Integer id);
+
+    @Query(value = "SELECT o.reference FROM Orders o WHERE o.reference=:uniqueOrderNumber")
+    String checkReferenceNumber(String uniqueOrderNumber);
 }

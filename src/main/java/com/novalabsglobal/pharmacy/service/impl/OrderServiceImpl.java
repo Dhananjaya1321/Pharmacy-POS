@@ -17,7 +17,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
@@ -32,15 +35,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String getReferenceNumber() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-        Date date = new Date();
-        String formattedDate = formatter.format(date);
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String datePart = currentDate.format(dateFormatter);
 
         Random random = new Random();
-        int randomNumber =random.nextInt(100001);
+        String reference;
+        do {
+            int randomNumber = random.nextInt(100000);
+            String randomPart = String.format("%03d", randomNumber);
+            reference = "ORD" + datePart + randomPart;
+        } while (orderRepo.checkReferenceNumber(reference) != null);
 
-        String uniqueOrderNumber = "ORD" + formattedDate + randomNumber;
-
-        return uniqueOrderNumber;
+        return reference;
     }
 }
